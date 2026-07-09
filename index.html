@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IDIS VA Selector</title>
 <style>
+@font-face {
+    font-family: 'Google Sans';
+    src: url('https://cdn.jsdelivr.net/fontsource/fonts/google-sans:vf@latest/latin-wght-normal.woff2')
+         format('woff2-variations');
+    font-weight: 100 900;
+    font-style: normal;
+}
 :root{
   --bg:#f3f5f8;--surface:#fff;--surface2:#f7f8fa;--surface3:#eef0f3;
   --border:#e2e5ea;--border2:#cdd1d8;
@@ -27,7 +34,14 @@
   --orange:#e07020;--orange-bg:#2a1500;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI",system-ui,sans-serif;min-height:100vh}
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-size:14px;
+    line-height:1.5;
+    font-family:"Google Sans","Segoe UI",system-ui,sans-serif;
+    min-height:100vh;
+}
 
 /* NAV */
 .nav{position:sticky;top:0;z-index:200;height:var(--nav-h);background:var(--surface);
@@ -178,6 +192,14 @@ body{background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI",system-ui,s
 }
 .va-type-select:not(.placeholder){
     color:var(--text2);
+}
+html,
+body,
+button,
+input,
+select,
+textarea{
+    font-family:"Google Sans","Segoe UI",system-ui,sans-serif;
 }
 </style>
 </head>
