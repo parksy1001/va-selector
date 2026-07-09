@@ -187,12 +187,7 @@ body{
     border-color:var(--accent);
     box-shadow:0 0 0 2px rgba(0,153,176,.15);
 }
-.va-type-select.placeholder{
-    color:#C5CBD5;
-}
-.va-type-select:not(.placeholder){
-    color:var(--text2);
-}
+
 html,
 body,
 button,
@@ -218,8 +213,7 @@ textarea{
   <aside class="va-left">
     <div class="va-type-wrap">
   <label class="va-type-label">Type</label>
-  <select id="vaTypeSelect" class="va-type-select placeholder" onchange="onVaTypeChange(this)">
-    <option value="" selected disabled hidden>Please Select VA Type</option>
+  <select id="vaTypeSelect" class="va-type-select" onchange="changeVaType(this.value)">
     <option value="builtin" class="ck-lbl">Camera Built-In VA Features</option>
     <option value="box" class="ck-lbl">VA Box (Add-On Appliance)</option>
   </select>
@@ -262,19 +256,19 @@ textarea{
     <div class="va-sec-lbl">VA Box</div>
     <div class="va-feat-grid">
       <div class="va-feat-card" data-vaf="dv1304a">
-        <span class="vfc-badge box-b">BOX</span>
+        <!-- <span class="vfc-badge box-b">BOX</span> -->
         <div class="vfc-icon">📦</div>
         <div class="vfc-name">DV-1304-A</div>
         <div class="vfc-tier">EdgeAI · 4 Streams</div>
       </div>
       <div class="va-feat-card" data-vaf="dv1304">
-        <span class="vfc-badge box-b">BOX</span>
+        <!-- <span class="vfc-badge box-b">BOX</span> -->
         <div class="vfc-icon">📊</div>
         <div class="vfc-name">DV-1304</div>
         <div class="vfc-tier">BI · 4 Streams</div>
       </div>
       <div class="va-feat-card" style="grid-column:1/-1" data-vaf="dv3200b">
-        <span class="vfc-badge svr-b">SVR</span>
+        <!-- <span class="vfc-badge svr-b">SVR</span> -->
         <div class="vfc-icon">🖥️</div>
         <div class="vfc-name">DV-3200-B (Server)</div>
         <div class="vfc-tier">Standard Cam · IDLA Server</div>
@@ -8349,15 +8343,7 @@ function changeVaType(type){
   }
 }
 
-function onVaTypeChange(select){
-    changeVaType(select.value);
-
-    if(select.value === ''){
-        select.classList.add('placeholder');
-    }else{
-        select.classList.remove('placeholder');
-    }
-}
+changeVaType('builtin');
 </script>
 </body>
 </html>
