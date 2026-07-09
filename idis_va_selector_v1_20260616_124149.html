@@ -142,6 +142,43 @@ body{background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI",system-ui,s
 .va-incompat-row{display:flex;gap:6px;align-items:flex-start;margin-bottom:4px}
 .va-incompat-row:last-child{margin-bottom:0}
 .gone{display:none!important}
+.va-type-wrap{
+  margin-bottom:18px;
+}
+.va-type-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text3);margin:16px 0 8px}
+.va-type-select{
+    width:100%;
+    height:35px;
+    padding:10px;
+    margin-top: 5px;
+    font-size:11px;   /* ← 여기 */
+    font-weight:700;
+    color:var(--text2);
+    /* text-transform:uppercase; */
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--surface);
+    outline:none;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding:0 38px 0 12px;
+    background-color: var(--surface);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 12px center;
+}
+.va-type-select:focus{
+    border-color:var(--accent);
+    box-shadow:0 0 0 2px rgba(0,153,176,.15);
+}
+.va-type-select.placeholder{
+    color:#C5CBD5;
+}
+.va-type-select:not(.placeholder){
+    color:var(--text2);
+}
 </style>
 </head>
 <body>
@@ -157,6 +194,15 @@ body{background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI",system-ui,s
 <div class="va-wrap">
   <!-- SIDEBAR FILTERS -->
   <aside class="va-left">
+    <div class="va-type-wrap">
+  <label class="va-type-label">Type</label>
+  <select id="vaTypeSelect" class="va-type-select placeholder" onchange="onVaTypeChange(this)">
+    <option value="" selected disabled hidden>Please Select VA Type</option>
+    <option value="builtin" class="ck-lbl">Camera Built-In VA Features</option>
+    <option value="box" class="ck-lbl">VA Box (Add-On Appliance)</option>
+  </select>
+</div>
+    <div id="secEdge" class="gone">
     <div class="va-sec-lbl">Edge AI (Camera Built-in)</div>
     <div class="va-feat-grid">
       <div class="va-feat-card" data-vaf="edgeai">
@@ -172,8 +218,9 @@ body{background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI",system-ui,s
         <div class="vfc-tier">A-cut · IDLA PRO</div>
       </div>
     </div>
-
-    <div class="va-sec-lbl">Camera Built-in VA Features</div>
+    </div>
+    <div id="secBuiltin" class="gone">
+    <div class="va-sec-lbl">VA Features</div>
     <div class="ck-row">
       <label class="ck-item"><input type="checkbox" data-vsel="A-Cut"><span class="ck-box"></span><span class="ck-lbl">A-Cut (Attributes)</span></label>
       <label class="ck-item"><input type="checkbox" data-vsel="Object Detection"><span class="ck-box"></span><span class="ck-lbl">Object Detection</span></label>
@@ -188,8 +235,9 @@ body{background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI",system-ui,s
     </div>
     
     <button class="rst-btn" onclick="resetVaFeatureSelector()">↺ Reset Features</button>
-
-    <div class="va-sec-lbl">VA Box (Add-on Appliance)</div>
+</div>
+<div id="secBox" class="gone">
+    <div class="va-sec-lbl">VA Box</div>
     <div class="va-feat-grid">
       <div class="va-feat-card" data-vaf="dv1304a">
         <span class="vfc-badge box-b">BOX</span>
@@ -210,6 +258,7 @@ body{background:var(--bg);color:var(--text);font:14px/1.5 "Segoe UI",system-ui,s
         <div class="vfc-tier">Standard Cam · IDLA Server</div>
       </div>
     </div>
+ </div>   
   </aside>
 
   <!-- DYNAMIC DISPLAY MAIN AREA -->
@@ -8258,6 +8307,35 @@ document.querySelector('.va-left').addEventListener('click', function(e){
   document.getElementById('vaIntro').classList.add('gone');
   vaRenderPreset(feat);
 });
+
+function changeVaType(type){
+  resetVaFeatureSelector();
+
+  document.getElementById('secEdge').classList.add('gone');
+  document.getElementById('secBuiltin').classList.add('gone');
+  document.getElementById('secBox').classList.add('gone');
+  if(type === ''){
+    return;
+  }
+
+  if(type === 'edge'){
+    document.getElementById('secEdge').classList.remove('gone');
+  }else if(type === 'builtin'){
+    document.getElementById('secBuiltin').classList.remove('gone');
+  }else if(type === 'box'){
+    document.getElementById('secBox').classList.remove('gone');
+  }
+}
+
+function onVaTypeChange(select){
+    changeVaType(select.value);
+
+    if(select.value === ''){
+        select.classList.add('placeholder');
+    }else{
+        select.classList.remove('placeholder');
+    }
+}
 </script>
 </body>
 </html>
